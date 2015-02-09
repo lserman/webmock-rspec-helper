@@ -1,0 +1,14 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.0.0
+- 2.1.0
+deploy:
+  provider: rubygems
+  gem:
+    release: webmock-rspec-helper
+  on:
+    repo: lserman/webmock-rspec-helper
+    branch: master
+  api_key:
+    secure: Cqfq5ez+4+CqpPEjDhUF3Nmbd2GgYHlD2GBmK1aVtXPh0DqR24WnkJuT7ug/PJT9qlYMlP6Bp8QM7LViBmh5UcPDK2nUxnbtBBoMahV7/Y1UMPzTMPtUKuCLqd4vgGlYcK6rDc/fXVwGjgbDJUtvmeXd0eG961+4jb6BNfOmnEA=
