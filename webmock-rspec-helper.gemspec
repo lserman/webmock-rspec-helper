@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['logan.serman@metova.com']
   spec.summary       = 'Easily define WebMock stubs that point to JSON files'
   spec.description   = spec.summary
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/lserman/webmock-rspec-helper'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
