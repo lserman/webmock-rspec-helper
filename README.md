@@ -38,7 +38,7 @@ Will stub requests to Google to return the contents of GET_google.401.json. Requ
 
 Any options that need to go into `with` can be given as the return value of a block passed into `webmock`:
 
-`webmock(:get, %r[:google.com] => 'GET_google.json') { Hash[query: { test: '123' }] }
+`webmock(:get, %r[:google.com] => 'GET_google.json') { Hash[query: { test: '123' }] }`
 
 ## Contributing
 
