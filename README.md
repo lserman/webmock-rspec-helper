@@ -36,6 +36,10 @@ Will stub requests to Google to return the contents of GET_google.json. Requests
 
 Will stub requests to Google to return the contents of GET_google.401.json. Requests will return a 401 status code.
 
+Any options that need to go into `with` can be given as the return value of a block passed into `webmock`:
+
+`webmock(:get, %r[:google.com] => 'GET_google.json') { Hash[query: { test: '123' }] }
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/webmock-rspec-helper/fork )
