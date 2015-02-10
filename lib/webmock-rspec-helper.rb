@@ -9,7 +9,10 @@ module WebMock
         mocks.each do |regex, filename|
           status = filename[/\.(\d+)\./, 1] || 200
           body = File.read Rails.root.join('spec', 'support', 'stubs', filename)
-          WebMock.stub_request(method, regex).to_return status: status.to_i, body: body
+
+          stub = WebMock.stub_request(method, regex)
+          stub.with(yield) if block_given?
+          stub.to_return status: status.to_i, body: body
         end
       end
 
