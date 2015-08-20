@@ -28,17 +28,19 @@ spec/
 
 You can use `webmock` within webmock_spec.rb like this:
 
-`webmock :get, %r[google.com] => 'GET_google.json'`
+```ruby
+# Will stub requests to Google to return the contents of GET_google.json. Requests will return a 200 status code.
+webmock :get, %r[google.com] => 'GET_google.json'
 
-Will stub requests to Google to return the contents of GET_google.json. Requests will return a 200 status code.
+# Stub requests to Google to return the contents of GET_google.401.json. Requests will return a 401 status code.
+webmock :get, %r[google.com] => 'GET_google.401.json'
 
-`webmock :get, %r[google.com] => 'GET_google.401.json'`
+# Stub requests to Google to return a 204 status code and an empty body
+webmock :get, %r[google.com] => 204
 
-Will stub requests to Google to return the contents of GET_google.401.json. Requests will return a 401 status code.
-
-Any options that need to go into `with` can be given as the return value of a block passed into `webmock`:
-
-`webmock(:get, %r[:google.com] => 'GET_google.json') { Hash[query: { test: '123' }] }`
+# Stub requests to Google to return the contents of GET_google.json when the query parameters match { test: '123' }
+webmock :get, %r[:google.com] => 'GET_google.json', with: Hash[query: { test: '123' }]
+```
 
 ## Contributing
 
