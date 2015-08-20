@@ -5,13 +5,18 @@ module WebMock
   module RSpec
     module Helper
 
-      def webmock(method, mocks = {})
-        mocks.each do |regex, filename|
-          status = filename[/\.(\d+)\./, 1] || 200
-          body = File.read Rails.root.join('spec', 'support', 'stubs', filename)
+      def webmock(method, mocks = {}, with: false)
+        mocks.each do |regex, result|
+          if result.to_s =~ /\A\d+\z/
+            status = result
+            body = ''
+          else
+            status = result[/\.(\d+)\./, 1] || 200
+            body = File.read Rails.root.join('spec', 'support', 'stubs', result)
+          end
 
           stub = WebMock.stub_request(method, regex)
-          stub.with(yield) if block_given?
+          stub.with(with) if with
           stub.to_return status: status.to_i, body: body
         end
       end
