@@ -5,7 +5,7 @@ module WebMock
   module RSpec
     module Helper
 
-      def webmock(method, mocks = {}, with: false)
+      def webmock(method, mocks = {}, with: false, headers: nil)
         mocks.each do |regex, result|
           if result.to_s =~ /\A\d+\z/
             status = result
@@ -17,7 +17,7 @@ module WebMock
 
           stub = WebMock.stub_request(method, regex)
           stub.with(with) if with
-          stub.to_return status: status.to_i, body: body
+          stub.to_return status: status.to_i, body: body, headers: headers
         end
       end
 

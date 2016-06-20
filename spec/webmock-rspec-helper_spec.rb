@@ -41,10 +41,16 @@ describe '#webmock' do
     expect(response.body).to eq ''
     expect(response.status).to eq 204
   end
+
+  it 'mocks GET google with response headers' do
+    webmock :get, %r[google.com] => 'GET_google.json', headers: { 'Content-Type' => 'text/html' }
+    response = GET 'http://google.com'
+    expect(response.content_type).to eq 'text/html'
+  end
 end
 
 def GET(url)
   response = Net::HTTP.get_response URI.parse(url)
   body = response.body ? JSON.parse(response.body) : ''
-  OpenStruct.new status: response.code.to_i, body: body
+  OpenStruct.new status: response.code.to_i, body: body, content_type: response['Content-Type']
 end
