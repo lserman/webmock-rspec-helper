@@ -49,6 +49,23 @@ describe '#webmock' do
   end
 end
 
+describe '#fetch_webmock' do
+  it 'should provide json data as a hash' do
+    expect(fetch_webmock(:GET_google).json).to eq('google' => true)
+    expect(fetch_webmock('GET_google.999').json).to eq('google' => true)
+  end
+
+  it 'should access nested stubs' do
+    expect(fetch_webmock(:nested, :GET_nested).json).to eq('nested' => true)
+    expect(fetch_webmock('nested/GET_nested').json).to eq('nested' => true)
+  end
+
+  it 'should provide raw data as a verbatim string' do
+    expect(fetch_webmock('GET_google.json').raw).to eq '{ "google": true }'
+    expect(fetch_webmock(:GET_google).raw(:json)).to eq '{ "google": true }'
+  end
+end
+
 def GET(url)
   response = Net::HTTP.get_response URI.parse(url)
   body = response.body ? JSON.parse(response.body) : ''
